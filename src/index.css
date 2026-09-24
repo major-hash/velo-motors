@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+html.light { color-scheme: light; }
+
+body {
+  @apply bg-obsidian text-platinum font-body antialiased;
+}
+html.light body {
+  @apply bg-[#f4f4f2] text-[#16191d];
+}
+
+::selection { background: #7a1f2b; color: #fff; }
+
+.container-x { @apply max-w-[1200px] mx-auto px-6; }
+
+.btn-primary {
+  @apply bg-oxblood text-white px-6 py-3 rounded-sm font-medium text-sm tracking-wide
+    transition-colors hover:bg-oxblood2 disabled:opacity-50 disabled:pointer-events-none;
+}
+.btn-outline {
+  @apply border border-white/15 text-platinum px-6 py-3 rounded-sm font-medium text-sm
+    transition-colors hover:border-white/40;
+}
+html.light .btn-outline {
+  @apply border-black/15 text-[#16191d] hover:border-black/40;
+}
+
+.input-field {
+  @apply w-full bg-transparent border border-white/15 rounded-sm px-4 py-3 text-sm
+    placeholder:text-steel focus:outline-none focus:border-oxblood2 transition-colors;
+}
+html.light .input-field {
+  @apply border-black/15 text-[#16191d] placeholder:text-black/40;
+}
+
+.card-surface { @apply bg-charcoal border border-white/[0.06] rounded-sm; }
+html.light .card-surface { @apply bg-white border-black/[0.06]; }
+
+.fade-in { animation: fadeIn 0.4s ease both; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
