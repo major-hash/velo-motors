@@ -11,6 +11,7 @@ interface AuthCtx {
   isAdmin: boolean
   signUp: (email: string, password: string, fullName: string, phone: string) => Promise<{ error: string | null }>
   signIn: (email: string, password: string) => Promise<{ error: string | null }>
+  signInWithGoogle: () => Promise<{ error: string | null }>
   signOut: () => Promise<void>
   sendPasswordReset: (email: string) => Promise<{ error: string | null }>
   updatePassword: (newPassword: string) => Promise<{ error: string | null }>
@@ -71,6 +72,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error: error ? error.message : null }
   }
 
+  async function signInWithGoogle() {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: `${window.location.origin}/account` },
+    })
+    return { error: error ? error.message : null }
+  }
+
   async function signOut() {
     await supabase.auth.signOut()
   }
@@ -110,6 +119,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isAdmin,
         signUp,
         signIn,
+        signInWithGoogle,
         signOut,
         sendPasswordReset,
         updatePassword,
